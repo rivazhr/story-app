@@ -57,7 +57,6 @@ export async function addStory(token, formData) {
   const response = await fetch(ENDPOINTS.POST_STORY, {
     method: 'POST',
     headers: {
-      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${token}`,
     },
     body: formData, 

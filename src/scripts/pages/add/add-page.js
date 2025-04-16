@@ -1,4 +1,6 @@
 import { AddPresenter } from './AddPresenter.js';
+import { startCamera, stopCamera, captureImage } from '../../utils/mediaStream.js';
+
 
 class AddPage {
   constructor() {
@@ -9,50 +11,77 @@ class AddPage {
     this.photoInput = null;
     this.submitButton = null;
   }
-
+  
   render() {
     return `
-      <div class="add-story-container">
-        <h1>Add New Story</h1>
+      <div class="container">
+        <h2>Add a New Story</h2>
         <form id="add-story-form">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
+          <label for="photo">Photo:</label>
+          <div id="camera-wrapper">
+            <video id="video" class="hidden" autoplay></video>
+            <canvas id="canvas" class="hidden"></canvas>
+            <button type="button" id="capture-btn" class="btn btn-secondary">
+              <i data-feather="camera"></i>
+              Capture Photo
+            </button>
+          </div>
+          <input type="file" id="photo" name="photo">
 
           <label for="description">Description:</label>
           <textarea id="description" name="description" required></textarea>
-
-          <label for="location">Location:</label>
-          <input type="text" id="location" name="location">
-
-          <label for="photo">Photo:</label>
-          <input type="file" id="photo" name="photo" accept="image/*" required>
-
-          <button type="submit" id="submit">Add Story</button>
+            
+          <button type="submit" id="submit" class="btn">Post your Story</button>
         </form>
       </div>
-    `;
-  }
-
-  afterRender() {
-    this.nameInput = document.querySelector('#name');
+      `;
+    }
+    
+    afterRender() {
     this.descriptionInput = document.querySelector('#description');
-    this.locationInput = document.querySelector('#location');
+    this.captureButton = document.querySelector('#capture-btn');
     this.photoInput = document.querySelector('#photo');
-    this.submitButton = document.querySelector('#submit');
 
+    // Starting camera or capture if started already
+    this.captureButton.addEventListener('click', async () => {
+      this.video = document.querySelector('#video');
+      this.canvas = document.querySelector('#canvas');
+
+      const isCameraOn = this.video.srcObject;
+
+      if (isCameraOn) {
+        const blob = await captureImage(this.video, this.canvas);
+        const file = new File([blob], `photo_${Date.now()}.jpg`, { type: 'image/jpeg' });
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        this.photoInput.files = dataTransfer.files;
+
+        this.canvas.classList.remove('hidden');
+        this.video.classList.add('hidden');
+
+        stopCamera(this.video);
+      } else {
+        await startCamera(this.video);
+
+        this.video.classList.remove('hidden');
+        this.canvas.classList.add('hidden');
+      }
+    });
+    
+    this.submitButton = document.querySelector('#submit');
     this.submitButton.addEventListener('click', (e) => this.handleSubmit(e));
   }
-
+  
   async handleSubmit(event) {
     event.preventDefault();
     
-    const name = this.nameInput.value;
     const description = this.descriptionInput.value;
-    const location = this.locationInput.value;
     const photo = this.photoInput.files[0];
+    console.log(photo);
     const token = localStorage.getItem('token');
     
-    await this.presenter.addStory(token, { name, description, location, photo });
+    await this.presenter.addStory(token, { description, photo });
   }
 
   showSuccessMessage(message) {

@@ -5,12 +5,10 @@ export class AddPresenter {
     this.view = view; 
   }
 
-  async addStory(token, { name, description, location, photo }) {
+  async addStory(token, { description, photo }) {
     const formData = new FormData();
     
-    formData.append('name', name);
     formData.append('description', description);
-    formData.append('location', location);
     formData.append('photo', photo);
     
     try {

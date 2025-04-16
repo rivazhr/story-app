@@ -8,7 +8,10 @@ export default class HomePage {
       <section class="container">
         <section class="title-button">
           <h2>Home</h2>
-          <a class="btn">Tell us a story!</a>
+          <a href="#/add" class="btn">
+            <i data-feather="plus"></i>
+            Share your Story
+          </a>
         </section>
         <div id="story-list"></div>
       </section>

@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 
 :root {
-  --primary-color: #1D5D9B;
-  --secondary-color: #F4D160;
+  --primary-color: #3D0301;
+  --primary-100: whitesmoke;
+  --secondary-color: #B03052;
+  --secondary-100: #efe2e5;
+  --accent-color: #EBE8DB;
+  --danger: #D24545;
+  --danger-100: #FDEAEA;
+  --neutral-100: #EFEFEF;
 }
 
 * {
@@ -13,6 +19,10 @@
   font-family: 'Lexend', sans-serif;
 }
 
+body {
+  background-color: #F1E7E7;
+}
+
 .container {
   padding-inline: 32px;
   margin-inline: auto;
@@ -20,7 +30,11 @@
 }
 
 header {
-  background-color: var(--primary-color);
+  background-color: rgba(61, 3, 1, 0.8); 
+  top: 0;
+  position: sticky;
+  z-index: 999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .main-header {
@@ -34,7 +48,7 @@ header {
 }
 
 .brand-name {
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
   color: whitesmoke;
@@ -45,7 +59,8 @@ header {
   width: 200px;
   padding: 20px 10px;
   background-color: whitesmoke;
-
+  justify-items: center;
+  
   position: fixed;
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -62,42 +77,54 @@ header {
 }
 
 .drawer-button {
-  padding: 8px;
   border: 0;
   border-radius: 4px;
 
-  display: inline-block;
   background-color: transparent;
 
   font-weight: bold;
   font-size: 28px;
   color: whitesmoke;
-
+  
   cursor: pointer;
+}
+
+.drawer-button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: whitesmoke;
+  font-size: large;
 }
 
 .nav-list {
   list-style: none;
-
+  
   display: flex;
   flex-direction: column;
   gap: 10px 20px;
+  width: 100%;
+}
+
+.nav-list li {
+  width: 100%;
+  justify-items: center;
 }
 
 .nav-list li a {
-  padding: 6px 10px;
-
-  display: block;
+  width: 100%;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  
+  display: flex;
   
   color: black;
   text-decoration: none;
   transition: font-weight 0.3s ease;
 }
 
-.nav-list li a:hover {
-  color: var(--secondary-color);
-  font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.1);
+.nav-list li a:hover, .nav-list li a.active {
+  background-color: rgba(230, 157, 184, 0.2);
 }
 
 .title-button {
@@ -109,19 +136,84 @@ header {
   width: 100%;
 }
 
+button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+a svg, button svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: black; 
+  flex-shrink: 0;
+}
+
 .btn {
+  display: flex;
   background-color: var(--primary-color);
   color: whitesmoke;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 40px;
+  border-radius: 12px;
   min-width: fit-content;
   cursor: pointer;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   outline: 0.5px solid black;
+}
+
+.btn-secondary {
+  background-color: var(--accent-color);
+  border: 1.5px solid var(--secondary-color);
+  color: black;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-color);
+  outline: none;
+  color: whitesmoke;
+}
+
+.btn-secondary:hover svg {
+  stroke: whitesmoke;
+}
+
+.btn-danger {
+  color: black !important;
+  border: 1.5px solid var(--danger);
+  background-color: var(--danger-100);
+  justify-content: start;
+  font-size: medium;
+}
+
+.btn-danger svg {
+  stroke: black;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger) !important;
+  outline: none;
+  color: var(--danger-100) !important;
+}
+
+.btn-danger:hover svg {
+  stroke: var(--danger-100) !important;
+}
+
+input, textarea {
+  padding: 0.5rem;
+}
+
+.hidden {
+  display: none;
 }
 
 /* MAIN */
@@ -253,7 +345,7 @@ story-card:hover {
   gap: 0.5rem;
   padding: 0.5rem;
   background-color: var(--secondary-color);
-  color: black;
+  color: whitesmoke;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -262,10 +354,7 @@ story-card:hover {
 }
 
 .map-btn svg {
-  width: 1rem;
-  height: 1rem;
-  stroke: black; 
-  flex-shrink: 0;
+  stroke: whitesmoke;
 }
 
 #drawer-button:hover {
@@ -277,6 +366,39 @@ story-card:hover {
   font-size: small;
   color: grey;
   font-weight: 400;
+}
+
+a svg {
+  stroke: whitesmoke; 
+}
+
+a {
+  gap: 8px;
+}
+
+/* ADD */
+
+#add-story-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: whitesmoke;
+}
+
+#add-story-form button {
+  border-radius: 8px;
+}
+
+/* MEDIA */
+
+#video {
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
 }
 
 /* RESPONSIVE */
@@ -297,12 +419,23 @@ story-card:hover {
   }
   
   .nav-list {
+    width: 100%;
     flex-direction: row;
+    align-items: center;
   }
-
+  
+  .nav-list li {
+    width: 100%;
+  }
+  
   .nav-list li a {
     display: inline-block;
     color: whitesmoke;
+  }
+
+  .nav-list li a:hover {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2);
   }
   
   .drawer-button {

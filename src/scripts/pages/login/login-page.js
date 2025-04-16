@@ -17,9 +17,6 @@ export default class LoginPage {
 
         <p class="auth-note">Don't have an account yet?</p>
         <a href="#/register" class="auth-link">Register here</a>
-
-        <p class="auth-note">Or</p>
-        <button id="guest-button" class="auth-button">Login as Guest</button>
       </section>
     `;
   }
