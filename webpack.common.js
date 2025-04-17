@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
@@ -34,6 +35,9 @@ module.exports = {
           to: 'images/leaflet'
         },
       ],
+    }),
+    new webpack.DefinePlugin({
+      'process.env.MAP_SERVICE_API_KEY': JSON.stringify(process.env.MAP_SERVICE_API_KEY),
     }),
     new Dotenv(),
   ],
