@@ -27,3 +27,31 @@ export function highlightActiveNav() {
     }
   });
 }
+
+export function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error('Geolocation tidak didukung di browser ini'));
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        console.log('Lokasi pengguna:', lat, lon);
+        resolve({ lat, lon });
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+  });
+}
+
+export function showLoader() {
+  document.getElementById('loading-indicator').classList.remove('hidden');
+}
+
+export function hideLoader() {
+  document.getElementById('loading-indicator').classList.add('hidden');
+}

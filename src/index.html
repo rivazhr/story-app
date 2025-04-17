@@ -19,7 +19,7 @@
           <li><a href="#/">Home</a></li>
           <li><a href="#/about">About</a></li>
           <li>
-            <button href="#/logout" class="btn btn-danger">
+            <button href="#/logout" id="logout-button" class="btn btn-danger">
               <i data-feather="log-out"></i>
               Logout
             </button>
@@ -32,6 +32,9 @@
   </header>
 
   <main id="main-content" class="main-content"></main>
+  <div id="loading-indicator" class="loading hidden">
+    <div class="spinner"></div>
+  </div>
 </body>
 
 </html>

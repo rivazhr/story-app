@@ -11,7 +11,7 @@ const routes = {
   '/register': new RegisterPage(),
   '/about': new AboutPage(),
   '/add': new AddPage(),
-  '/map/:id': new MapPage(),
+  '/map': new MapPage(),
 };
 
 export default routes;

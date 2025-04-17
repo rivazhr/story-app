@@ -1,13 +1,23 @@
 export default class AboutPage {
   async render() {
     return `
-      <section class="container">
-        <h1>About Page</h1>
+      <section class="about-container">
+        <h2 class="about-title">About Us</h2>
+        <p class="about-description">
+          Welcome to our application! This platform is built to help you manage your stories and share experiences. 
+          Our team is dedicated to providing a seamless and engaging experience for our users.
+        </p>
+        <h2 class="team-title">Our Team</h2>
+        <ul class="team-list">
+          <li class="team-member">
+            <h3>Rifa Fairuz Zahra</h3>
+            <p>Lead Developer</p>
+          </li>
+        </ul>
       </section>
     `;
   }
 
   async afterRender() {
-    // Do your job here
   }
 }

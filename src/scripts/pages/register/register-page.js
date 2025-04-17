@@ -14,6 +14,9 @@ export default class RegisterPage {
 
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="Create a password" required />
+          <p id="register-error" role="alert" aria-live="assertive" class="error-message hidden">
+            Password tidak memenuhi ketentuan
+          </p>
 
           <button type="submit" class="auth-button">Register</button>
         </form>
@@ -30,20 +33,46 @@ export default class RegisterPage {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
 
+    passwordInput.addEventListener('input', () => {
+      const passwordValue = passwordInput.value.trim();
+      if (passwordValue.length < 8) {
+        this.showError('Password minimal 8 karakter');
+        passwordInput.setAttribute('aria-invalid', 'true');
+      } else {
+        this.hideError();
+        passwordInput.removeAttribute('aria-invalid');
+      }
+    });
+
     registerForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const name = nameInput.value;
       const email = emailInput.value;
       const password = passwordInput.value;
+
+      if (password.length < 8) {
+        this.showError('Password harus minimal 8 karakter');
+        passwordInput.setAttribute('aria-invalid', 'true');
+        return;
+      }
+
+      this.hideError();
+      passwordInput.removeAttribute('aria-invalid');
+
       const presenter = new RegisterPresenter(this);
       presenter.handleRegister(name, email, password);
     });
   }
 
   showError(message) {
-    const errorMessage = document.createElement('p');
-    errorMessage.textContent = message;
-    errorMessage.style.color = 'red';
-    document.querySelector('.auth-container').appendChild(errorMessage);
+    const errorEl = document.getElementById('register-error');
+    errorEl.textContent = message;
+    errorEl.classList.remove('hidden');
+  }
+
+  hideError() {
+    const errorEl = document.getElementById('register-error');
+    errorEl.textContent = '';
+    errorEl.classList.add('hidden');
   }
 }

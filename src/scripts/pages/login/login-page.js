@@ -33,12 +33,6 @@ export default class LoginPage {
       const presenter = new LoginPresenter(this);
       presenter.handleLogin(email, password);
     });
-
-    const guestButton = document.getElementById('guest-button');
-    guestButton.addEventListener('click', () => {
-      const presenter = new LoginPresenter(this);
-      presenter.handleGuestLogin();
-    });
   }
 
   showError(message) {

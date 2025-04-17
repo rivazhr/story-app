@@ -1,21 +1,20 @@
-import { createMap } from '../../data/map.js';
+import MapPresenter from './MapPresenter.js';
 
-class MapPage {
+export default class MapPage {
   constructor() {
-    this._mapContainer = null;
+    this.presenter = new MapPresenter(this);
   }
 
-  render() {
-    this._mapContainer = document.createElement('div');
-    this._mapContainer.id = 'map'; 
-    this._mapContainer.style.width = '100%';
-    this._mapContainer.style.height = '500px';
-    return this._mapContainer;
+  async render() {
+    return `
+      <section class="container">
+        <h2>Location</h2>
+        <div id="map"></div>
+      </section>
+    `;
   }
 
-  afterRender() {
-    createMap(this._mapContainer.id);
+  async afterRender() {
+    this.presenter.createMap();
   }
 }
-
-export default MapPage;

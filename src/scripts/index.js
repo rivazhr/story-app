@@ -1,10 +1,11 @@
-// CSS imports
 import '../styles/styles.css';
 import feather from 'feather-icons';
 import { stopCamera } from './utils/mediaStream.js';
 import { highlightActiveNav } from './utils/index.js';
+import MapPresenter from './pages/map/MapPresenter.js';
 
 import App from './pages/app';
+import { getActiveRoute } from './routes/url-parser.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
@@ -15,6 +16,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   await app.renderPage();
   highlightActiveNav();
   feather.replace();
+
+  const currentPath = window.location.hash;
+  if (currentPath !== '#/login' || currentPath !== '#/register') {
+    try {
+      document.getElementById('logout-button').addEventListener('click', (event) => {
+        localStorage.removeItem('token');
+        window.location.hash = '#/login'; 
+      });
+    } catch (error) {}
+  }
+
+  try {
+    document.getElementById('logout-button').addEventListener('click', (event) => {
+      localStorage.removeItem('token');
+      window.location.hash = '#/login';
+    });
+  } catch (error) {}
   
   window.addEventListener('hashchange', async () => {
     try {
@@ -26,3 +44,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     feather.replace();
   });
 });
+
+

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
@@ -28,7 +29,12 @@ module.exports = {
           from: path.resolve(__dirname, 'src/public/'),
           to: path.resolve(__dirname, 'dist/'),
         },
+        {
+          from: path.resolve(__dirname, 'node_modules/leaflet/dist/images'),
+          to: 'images/leaflet'
+        },
       ],
     }),
+    new Dotenv(),
   ],
 };

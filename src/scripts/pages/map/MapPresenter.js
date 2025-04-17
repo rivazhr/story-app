@@ -1,18 +1,15 @@
-// map-presenter.js (Presenter)
+import { createMap } from '../../data/map.js';
 
-import MapPage from './map-page';
-
-class MapPresenter {
-  constructor() {
-    this.mapPage = new MapPage();
+export default class MapPresenter {
+  constructor(view) {
+    this.view = view;
   }
 
-  showMapPage() {
-    const content = document.querySelector('#main-content');
-    content.innerHTML = ''; 
-    content.appendChild(this.mapPage.render());
-    this.mapPage.afterRender();
+  createMap() {
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    const lat = parseFloat(urlParams.get('lat'))  || -2.5489;
+    const lon = parseFloat(urlParams.get('lon'))  || 118.0149;
+
+    createMap('map', [lat, lon], 18);
   }
 }
-
-export default MapPresenter;

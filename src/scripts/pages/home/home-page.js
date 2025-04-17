@@ -5,7 +5,7 @@ import { getAllStories } from '../../data/api.js';
 export default class HomePage {
   async render() {
     return `
-      <section class="container">
+      <div class="container">
         <section class="title-button">
           <h2>Home</h2>
           <a href="#/add" class="btn">
