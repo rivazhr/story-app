@@ -14,7 +14,9 @@ class AddPage {
   render() {
     return `
       <div class="container">
-        <h2>Add a New Story</h2>
+        <section class="title-button">
+          <h1>Add a New Story</h1>
+        </section>
         <form id="add-story-form">
 
           <div id="desktop-camera-wrapper" class="hidden">

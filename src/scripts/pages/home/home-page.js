@@ -7,7 +7,7 @@ export default class HomePage {
     return `
       <div class="container">
         <section class="title-button">
-          <h2>Home</h2>
+          <h1>Home</h1>
           <a href="#/add" class="btn">
             <i data-feather="plus"></i>
             Share your Story

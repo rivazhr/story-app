@@ -19,6 +19,11 @@
   font-family: 'Lexend', sans-serif;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   background-color: #F1E7E7;
   min-height: 100vh;
@@ -134,10 +139,12 @@ header {
 .title-button {
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 }
 
-.title-button h2 {
+.title-button h1 {
   width: 100%;
+  font-size: 2rem;
 }
 
 button {
@@ -309,7 +316,6 @@ input, textarea {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
-  margin-top: 20px;
 }
 
 story-card {
@@ -433,8 +439,13 @@ a {
 /* MAP */
 
 #map { 
-  margin-top: 20px;
-  height: calc(100vh - 210px);; 
+  flex: 1;
+}
+
+.container.map {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 160px);
 }
 
 /* LOADING INDICATOR */

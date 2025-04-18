@@ -56,11 +56,11 @@ export class AddPresenter {
         this.showSuccessMessage('Story added successfully!');
         window.location.hash = '/';
       } else {
-        this.showErrorMessage('Failed to add story. Please try again.');
+        this.showErrorMessage(error.message || 'Failed to add story. Please try again.');
       }
     } catch (error) {
       console.error(error);
-      this.view.showErrorMessage('An error occurred while adding the story.');
+      this.showErrorMessage(error.message || 'Failed to add story. Please try again.');
     } 
   }
 
@@ -69,6 +69,11 @@ export class AddPresenter {
   }
   
   showErrorMessage(message) {
-    alert(message);
+    const errorBox = document.createElement('div');
+    errorBox.textContent = message;
+    errorBox.style.color = 'red';
+    errorBox.style.marginTop = '1rem';
+
+    document.querySelector('#add-story-form').appendChild(errorBox);
   }
 }

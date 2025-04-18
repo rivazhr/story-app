@@ -7,8 +7,10 @@ export default class MapPage {
 
   async render() {
     return `
-      <section class="container">
-        <h2>Location</h2>
+      <section class="container map">
+        <section class="title-button">
+          <h1>Location</h1>
+        </section>
         <div id="map"></div>
       </section>
     `;
