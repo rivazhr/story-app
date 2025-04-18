@@ -1,5 +1,4 @@
 import '../styles/styles.css';
-import feather from 'feather-icons';
 import { stopCamera } from './utils/mediaStream.js';
 import { highlightActiveNav, toggleHeaderVisibility, changeTitle } from './utils/index.js';
 import { getActivePathname } from './routes/url-parser.js';
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   await app.renderPage();
   toggleHeaderVisibility();
   highlightActiveNav();
-  feather.replace();
 
   const currentPath = getActivePathname();
   if (currentPath !== '/login' || currentPath !== '/register') {
@@ -32,11 +30,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       const video = document.querySelector('#video');
       stopCamera(video);
     } catch (error) {}
+    
     await app.renderPage();
     changeTitle(getActivePathname());
     toggleHeaderVisibility();
     highlightActiveNav();
-    feather.replace();
   });
 });
 

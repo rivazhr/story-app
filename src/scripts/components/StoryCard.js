@@ -30,7 +30,7 @@ class StoryCard extends HTMLElement {
     const location = await reverseGeocode(this._story.lat, this._story.lon);
     const mapButton = this.querySelector('.map-btn');
 
-    if (!location || !this._story.lat) {
+    if (!location || !this._story.lat || !this._story.lon) {
       locationLabel.textContent = 'Unknown Location';
       mapButton.disabled = true;
       mapButton.classList.add('disabled'); 
