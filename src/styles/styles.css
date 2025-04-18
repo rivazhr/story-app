@@ -339,17 +339,20 @@ story-card:hover {
 
 .story-content {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.5rem;
 }
 
 .story-name {
   color: black;
   font-size: 1rem;
-  margin: 0.5rem 0;
 }
 
 .story-desc {
   color: black;
-  margin-bottom: 0.75rem;
+  height: 100%;
 }
 
 .story-date {
@@ -360,19 +363,23 @@ story-card:hover {
 .map-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background-color: var(--secondary-color);
-  color: whitesmoke;
+  gap: 0.4rem;
+  color: var(--secondary-color);
+  font-weight: 500;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font: inherit;
   font-size: small;
+  justify-content: start;
+  width: fit-content;
 }
 
 .map-btn svg {
-  stroke: whitesmoke;
+  stroke: var(--secondary-color);
+}
+
+.map-btn:hover {
+  text-decoration: underline;
 }
 
 #drawer-button:hover {
