@@ -440,6 +440,7 @@ a {
 
 #map { 
   flex: 1;
+  min-height: 300px;
 }
 
 .container.map {

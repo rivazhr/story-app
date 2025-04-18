@@ -56,7 +56,7 @@ export class AddPresenter {
         this.showSuccessMessage('Story added successfully!');
         window.location.hash = '/';
       } else {
-        this.showErrorMessage(error.message || 'Failed to add story. Please try again.');
+        this.showErrorMessage(result.message || 'Failed to add story. Please try again.');
       }
     } catch (error) {
       console.error(error);
