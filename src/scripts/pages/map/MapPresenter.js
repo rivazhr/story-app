@@ -1,4 +1,4 @@
-import { createMap } from '../../data/map.js';
+import { addMark, createMap } from '../../data/map.js';
 
 export default class MapPresenter {
   constructor(view) {
@@ -10,6 +10,7 @@ export default class MapPresenter {
     const lat = parseFloat(urlParams.get('lat'))  || -2.5489;
     const lon = parseFloat(urlParams.get('lon'))  || 118.0149;
 
-    createMap('map', [lat, lon], 18);
+    const map = createMap('map', [lat, lon], 18);
+    addMark(map, [lat, lon])
   }
 }

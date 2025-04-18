@@ -40,10 +40,12 @@ export const createMap = (containerId, initialLatLng = [-2.548926, 118.0148634],
     }
   ).addTo(map);
 
-  L.marker(initialLatLng).addTo(map);
-
   return map;
 };
+
+export function addMark (map, initialLatLng) {
+  L.marker(initialLatLng).addTo(map);
+}
 
 export async function reverseGeocode(lat, lon) {
   try {
@@ -54,7 +56,6 @@ export async function reverseGeocode(lat, lon) {
     const addressParts = address.split(',').map(part => part.trim());
     const shortAddress = addressParts.slice(-2).join(', ');
 
-    console.log('Alamat:', shortAddress);
     return shortAddress;
   } catch (error) {
     return 'Gagal mengambil alamat';

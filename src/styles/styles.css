@@ -27,6 +27,7 @@ body {
 }
 
 .container {
+  width: 100%;
   padding-inline: 32px;
   margin-inline: auto;
   max-width: 1300px;
@@ -232,13 +233,16 @@ input, textarea {
 
 /* MAIN */
 .main-content {
+  display: flex;
   padding-block: 32px;
+  width: 100%;
 }
 
 /* AUTH */
+
 .auth-container {
-  max-width: 400px;
-  margin: 80px auto;
+  width: 50%;
+  margin: auto;
   padding: 2rem;
   background-color: white;
   border: 1px solid black;
@@ -415,6 +419,10 @@ a {
   border-radius: 8px;
 }
 
+#canvas {
+  max-width: 100% ;
+}
+
 /* MAP */
 
 #map { 
@@ -460,8 +468,8 @@ a {
 
 .about-container {
   background-color: #ffffff;
-  max-width: 800px;
-  margin: 30px auto;
+  max-width: 60%;
+  margin: 1rem auto;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -36,9 +36,6 @@ module.exports = {
         },
       ],
     }),
-    new webpack.DefinePlugin({
-      'process.env.MAP_SERVICE_API_KEY': JSON.stringify(process.env.MAP_SERVICE_API_KEY),
-    }),
     new Dotenv(),
   ],
 };

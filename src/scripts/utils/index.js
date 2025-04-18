@@ -38,7 +38,6 @@ export function getCurrentPosition() {
       (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        console.log('Lokasi pengguna:', lat, lon);
         resolve({ lat, lon });
       },
       (error) => {
@@ -54,4 +53,14 @@ export function showLoader() {
 
 export function hideLoader() {
   document.getElementById('loading-indicator').classList.add('hidden');
+}
+
+export function toggleHeaderVisibility() {
+  const header = document.querySelector('header');
+  const currentRoute = getActivePathname();
+  if (currentRoute === '/login' || currentRoute === '/register') {
+    header.style.display = 'none';
+  } else {
+    header.style.display = 'block';
+  }
 }

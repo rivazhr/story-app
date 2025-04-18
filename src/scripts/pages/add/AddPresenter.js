@@ -1,19 +1,45 @@
 import * as api from '../../data/api.js';
 import { getCurrentPosition, hideLoader, showLoader } from '../../utils/index.js';
+import { createMap } from '../../data/map.js';
 
 export class AddPresenter {
   constructor(view) {
     this.view = view; 
   }
 
-  async handleSubmit(description, photo) {
-    
+  async handleSubmit(description, photo, lat, lon) {
     showLoader();
-    const { lat, lon } = await getCurrentPosition();
     const token = localStorage.getItem('token');
     
     await this.addStory(token, { description, photo, lat, lon });
     hideLoader();
+  }
+
+  async setupMap(latInput, lonInput) {
+    try {
+      let { lat, lon } = await getCurrentPosition();
+
+      console.log(lat, lon)
+
+      const map = createMap('map', [lat, lon], 18);
+
+      const marker = L.marker([lat, lon], { draggable: true }).addTo(map);
+
+      marker.on('dragend', async () => {
+        const position = marker.getLatLng();
+        lat = position.lat;
+        lon = position.lng;
+
+        latInput.value = lat;
+        lonInput.value = lon;
+        console.log(latInput.value, lonInput.value)
+      });
+
+      latInput.value = lat;
+      lonInput.value = lon;
+    } catch (error) {
+      console.error('Gagal mendapatkan lokasi', error);
+    }
   }
 
   async addStory(token, { description, photo, lat, lon }) {

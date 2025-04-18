@@ -16,9 +16,9 @@ class AddPage {
       <div class="container">
         <h2>Add a New Story</h2>
         <form id="add-story-form">
-          <label for="photo">Photo:</label>
 
           <div id="desktop-camera-wrapper" class="hidden">
+            <label for="photo">Photo:</label>
             <video id="video" class="hidden" autoplay></video>
             <canvas id="canvas" class="hidden"></canvas>
             <button type="button" id="capture-btn" class="btn btn-secondary">
@@ -29,7 +29,7 @@ class AddPage {
           </div>
 
           <div id="mobile-camera-wrapper" class="hidden">
-            <label for="photo">Ambil Foto:</label>
+            <label for="photo">Photo:</label>
             <input
               type="file"
               accept="image/*"
@@ -42,6 +42,13 @@ class AddPage {
           <label for="description">Description:</label>
           <textarea id="description" name="description" required></textarea>
           
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location" hidden>
+
+          <input type="hidden" id="lat" name="lat">
+          <input type="hidden" id="lon" name="lon">
+          <div id="map"></div>
+          
           <button type="submit" id="submit" class="btn">Post your Story</button>
         </form>
       </div>
@@ -49,6 +56,16 @@ class AddPage {
   }
     
   afterRender() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.hash = '#/login';
+      return;
+    }
+
+    this.latInput = document.querySelector('#lat');
+    this.lonInput = document.querySelector('#lon');
+    this.presenter.setupMap(this.latInput, this.lonInput);
+
     this.descriptionInput = document.querySelector('#description');
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
@@ -92,7 +109,7 @@ class AddPage {
     this.submitButton = document.querySelector('#submit');
     this.submitButton.addEventListener('click', (e) => {
       e.preventDefault();
-      this.presenter.handleSubmit(this.descriptionInput.value, this.photoInput.files[0]);
+      this.presenter.handleSubmit(this.descriptionInput.value, this.photoInput.files[0], this.latInput.value, this.lonInput.value);
     });
   }
 }

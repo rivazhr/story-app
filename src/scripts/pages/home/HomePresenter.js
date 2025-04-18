@@ -1,3 +1,5 @@
+import { showLoader, hideLoader } from "../../utils";
+
 export default class HomePresenter {
   #model;
   #view;
@@ -8,7 +10,9 @@ export default class HomePresenter {
   }
 
   async init(token) {
+    showLoader();
     const { listStory } = await this.#model.getAllStories(token);
     this.#view.showData(listStory);
+    hideLoader();
   }
 }
