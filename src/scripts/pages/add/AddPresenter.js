@@ -19,8 +19,6 @@ export class AddPresenter {
     try {
       let { lat, lon } = await getCurrentPosition();
 
-      console.log(lat, lon)
-
       const map = createMap('map', [lat, lon], 18);
 
       const marker = L.marker([lat, lon], { draggable: true }).addTo(map);
@@ -32,7 +30,6 @@ export class AddPresenter {
 
         latInput.value = lat;
         lonInput.value = lon;
-        console.log(latInput.value, lonInput.value)
       });
 
       latInput.value = lat;

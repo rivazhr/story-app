@@ -1,5 +1,18 @@
 import { getActivePathname } from '../routes/url-parser.js';
 
+export function changeTitle(route) {
+  const routes = {
+    '/': 'LuluTalk',
+    '/about': 'LuluTalk | About',
+    '/add': 'LuluTalk | Add a New Story',
+    '/map': 'LuluTalk | Location',
+  };
+
+  const pageTitle = routes[route] || 'LuluTalk';
+  
+  document.title = pageTitle;
+}
+
 export function showFormattedDate(date, locale = 'en-US', options = {}) {
   return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',

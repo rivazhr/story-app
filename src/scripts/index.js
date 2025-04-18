@@ -1,7 +1,7 @@
 import '../styles/styles.css';
 import feather from 'feather-icons';
 import { stopCamera } from './utils/mediaStream.js';
-import { highlightActiveNav, toggleHeaderVisibility } from './utils/index.js';
+import { highlightActiveNav, toggleHeaderVisibility, changeTitle } from './utils/index.js';
 import { getActivePathname } from './routes/url-parser.js';
 
 import App from './pages/app';
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       stopCamera(video);
     } catch (error) {}
     await app.renderPage();
+    changeTitle(getActivePathname());
     toggleHeaderVisibility();
     highlightActiveNav();
     feather.replace();

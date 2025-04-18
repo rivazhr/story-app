@@ -15,7 +15,7 @@ class StoryCard extends HTMLElement {
     this.innerHTML = `
       <img src="${this._story.photoUrl}" alt="Photo by ${this._story.name}" class="story-img" />
       <section class="story-content">
-        <a class="map-btn" data-lat="${this._story.lat}" data-lon="${this._story.lon}">
+        <a class="map-btn" href="#/map?lat=${this._story.lat}&lon=${this._story.lon}" tabindex="0">
           <i data-feather="map-pin"></i>
           <span class="location-label">Loading...</span>
         </a>
@@ -30,20 +30,13 @@ class StoryCard extends HTMLElement {
     const location = await reverseGeocode(this._story.lat, this._story.lon);
     const mapButton = this.querySelector('.map-btn');
 
-    if (!location) {
+    if (!location || !this._story.lat) {
       locationLabel.textContent = 'Unknown Location';
       mapButton.disabled = true;
       mapButton.classList.add('disabled'); 
     } else {
       locationLabel.textContent = location;
     }
-
-    mapButton.addEventListener('click', (e) => {
-      const lat = e.currentTarget.dataset.lat;
-      const lon = e.currentTarget.dataset.lon;
-      
-      window.location.hash = `#/map?lat=${lat}&lon=${lon}`;
-    });
   }
 }
 
