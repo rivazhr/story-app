@@ -1,5 +1,5 @@
 import * as api from '../../data/api.js';
-import { getCurrentPosition, hideLoader, showLoader } from '../../utils/index.js';
+import { getCurrentPosition, hideLoader, showLoader, compressImage } from '../../utils/index.js';
 import { createMap } from '../../data/map.js';
 
 export class AddPresenter {
@@ -43,10 +43,12 @@ export class AddPresenter {
   }
 
   async addStory(token, { description, photo, lat, lon }) {
+    const compressedPhoto = await compressImage(photo);
+
     const formData = new FormData();
     
     formData.append('description', description);
-    formData.append('photo', photo);
+    formData.append('photo', compressedPhoto);
     formData.append('lat', lat);
     formData.append('lon', lon);
     
