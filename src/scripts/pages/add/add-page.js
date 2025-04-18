@@ -25,7 +25,7 @@ class AddPage {
               <i data-feather="camera"></i>
               Capture Photo
             </button>
-            <input type="file" id="photo" name="photo">
+            <input type="file" id="photo-desktop" name="photo">
           </div>
 
           <div id="mobile-camera-wrapper" class="hidden">
@@ -34,7 +34,7 @@ class AddPage {
               type="file"
               accept="image/*"
               capture="environment"
-              id="photo"
+              id="photo-mobile"
               name="photo"
             />
           </div>
@@ -74,13 +74,14 @@ class AddPage {
 
     if (isMobile) {
       mobileWrapper.classList.remove('hidden');
+      this.photoInput = document.querySelector('#photo-mobile');
     } else {
       desktopWrapper.classList.remove('hidden');
 
       this.captureButton = document.querySelector('#capture-btn');
       this.video = document.querySelector('#video');
       this.canvas = document.querySelector('#canvas');
-      this.photoInput = document.querySelector('#photo');
+      this.photoInput = document.querySelector('#photo-desktop');
 
       this.captureButton.addEventListener('click', async () => {
         const isCameraOn = this.video.srcObject;
