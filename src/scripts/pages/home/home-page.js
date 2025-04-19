@@ -4,6 +4,12 @@ import { getAllStories } from '../../data/api.js';
 
 export default class HomePage {
   async render() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.hash = '#/login';
+      return '';
+    }
+
     return `
       <div class="container">
         <section class="title-button">
@@ -14,16 +20,13 @@ export default class HomePage {
           </a>
         </section>
         <div id="story-list"></div>
-      </section>
+      </div>
     `;
   }
 
+
   async afterRender() {
     const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.hash = '#/login';
-      return;
-    }
 
     const presenter = new HomePresenter({
       model: { getAllStories },  
