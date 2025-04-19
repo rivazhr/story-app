@@ -55,6 +55,19 @@ class App {
 
     transition.finished.then(() => {
       this.#currentPath = getActivePathname();
+
+      if (this.#currentPath == '/login' || this.#currentPath == '/register') {
+        document.body.classList.add('auth-page');
+      } else {
+        document.body.classList.remove('auth-page');
+        try {
+          document.getElementById('logout-button').addEventListener('click', (event) => {
+            localStorage.removeItem('token');
+            window.location.hash = '#/login'; 
+          });
+        } catch (error) {}
+      }
+
       document.getElementById('skip-to-content')?.addEventListener('click', () => {
         const mainContent = document.getElementById('main-content');
         if (mainContent) {

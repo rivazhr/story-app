@@ -12,22 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     navigationDrawer: document.querySelector('#navigation-drawer'),
   });
   await app.renderPage();
+  changeTitle(getActivePathname());
   toggleHeaderVisibility();
   highlightActiveNav();
 
-  const currentPath = getActivePathname();
-  if (currentPath == '/login' || currentPath == '/register') {
-    document.body.classList.add('auth-page');
-  } else {
-    document.body.classList.remove('auth-page');
-    try {
-      document.getElementById('logout-button').addEventListener('click', (event) => {
-        localStorage.removeItem('token');
-        window.location.hash = '#/login'; 
-      });
-    } catch (error) {}
-  }
-  
   window.addEventListener('hashchange', async () => {
     try {
       const video = document.querySelector('#video');
@@ -38,19 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     changeTitle(getActivePathname());
     toggleHeaderVisibility();
     highlightActiveNav();
-    
-    const currentPath = getActivePathname();
-    if (currentPath == '/login' || currentPath == '/register') {
-      document.body.classList.add('auth-page');
-    } else {
-      document.body.classList.remove('auth-page');
-      try {
-        document.getElementById('logout-button').addEventListener('click', (event) => {
-          localStorage.removeItem('token');
-          window.location.hash = '#/login'; 
-        });
-      } catch (error) {}
-    }
   });
 });
 
