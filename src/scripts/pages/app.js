@@ -43,22 +43,18 @@ class App {
       this.#content.innerHTML = await page.render();
       await page.afterRender();
       feather.replace();
-      document.getElementById('skip-to-content')?.addEventListener('click', () => {
-        const mainContent = document.getElementById('main-content');
-        if (mainContent) {
-          mainContent.setAttribute('tabindex', '-1'); 
-          mainContent.focus();
-        }
-      });
-
       return;
     }
 
     const transition = document.startViewTransition(async () => {
-
       this.#content.innerHTML = await page.render();
       await page.afterRender();
       feather.replace();
+    });
+
+
+    transition.finished.then(() => {
+      this.#currentPath = getActivePathname();
       document.getElementById('skip-to-content')?.addEventListener('click', () => {
         const mainContent = document.getElementById('main-content');
         if (mainContent) {
@@ -67,11 +63,6 @@ class App {
           mainContent.scrollIntoView({ behavior: 'smooth' });
         }
       });
-    });
-
-
-    transition.finished.then(() => {
-      this.#currentPath = getActivePathname();
     });
   }
 }
