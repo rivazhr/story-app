@@ -19,11 +19,6 @@
   font-family: 'Lexend', sans-serif;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
 body {
   background-color: #F1E7E7;
   min-height: 100vh;
@@ -174,6 +169,7 @@ a svg, button svg {
   text-decoration: none;
   align-items: center;
   justify-content: center;
+  font-size: inherit;
 }
 
 .btn:hover {
@@ -219,6 +215,10 @@ a svg, button svg {
   stroke: var(--danger-100) !important;
 }
 
+#skip-to-content {
+  background-color: var(--secondary-color);
+}
+
 input, textarea {
   padding: 0.5rem;
 }
@@ -252,6 +252,11 @@ input, textarea {
 }
 
 /* AUTH */
+
+.auth-page {
+  justify-content: center;  
+  align-items: center;
+}
 
 .auth-container {
   width: 50%;
@@ -337,8 +342,8 @@ story-card {
 }
 
 story-card:hover {
-  transform: scale(1.05); 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+  animation: grow 0.3s ease forwards;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .story-img {
@@ -569,15 +574,17 @@ a {
   
   .nav-list li {
     width: 100%;
+    min-width: fit-content;
+    font-size: medium;
   }
   
   .nav-list li a {
-    display: inline-block;
+    display: flex;
     color: whitesmoke;
   }
-
+  
   .nav-list li a:hover {
-    display: inline-block;
+    display: flex;
     background-color: rgba(255, 255, 255, 0.2);
   }
   
@@ -588,20 +595,13 @@ a {
 
 /* TRANSITION */
 
-.move-out {
-  animation: fadeOut 0.15s forwards;
+::view-transition-old(.main-content),
+::view-transition-new(.main-content) {
+  animation-duration: 2000ms;
+  animation-timing-function: ease-in-out;
 }
 
-.move-in {
-  animation: fadeIn 0.25s forwards;
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(10px); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes grow {
+  from { transform: scale(1); }
+  to { transform: scale(1.03); }
 }

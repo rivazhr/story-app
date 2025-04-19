@@ -32,6 +32,14 @@ export class AddPresenter {
         lonInput.value = lon;
       });
 
+      map.on('click', function (e) {
+        const { lat: clickedLat, lng: clickedLon } = e.latlng;
+
+        marker.setLatLng([clickedLat, clickedLon]); 
+        latInput.value = clickedLat;
+        lonInput.value = clickedLon;
+      });
+
       latInput.value = lat;
       lonInput.value = lon;
     } catch (error) {

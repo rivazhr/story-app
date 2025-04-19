@@ -43,8 +43,13 @@ export const createMap = (containerId, initialLatLng = [-2.548926, 118.0148634],
   return map;
 };
 
-export function addMark (map, initialLatLng) {
-  L.marker(initialLatLng).addTo(map);
+export async function addMark (map, initialLatLng) {
+  const marker = L.marker(initialLatLng).addTo(map);
+  marker.bindPopup(`
+    Latitude: ${ initialLatLng[0] }<br>
+    Longitude: ${ initialLatLng[1] }<br>
+    Location: ${ await reverseGeocodeFull(initialLatLng[0], initialLatLng[1]) }
+  `);
 }
 
 export async function reverseGeocode(lat, lon) {
@@ -57,6 +62,17 @@ export async function reverseGeocode(lat, lon) {
     const shortAddress = addressParts.slice(-2).join(', ');
 
     return shortAddress;
+  } catch (error) {
+    return 'Gagal mengambil alamat';
+  }
+}
+
+export async function reverseGeocodeFull(lat, lon) {
+  try {
+    const results = await maptilersdk.geocoding.reverse([lon, lat]);
+    const address = results.features[0]?.place_name || 'Alamat tidak ditemukan';
+
+    return address;
   } catch (error) {
     return 'Gagal mengambil alamat';
   }

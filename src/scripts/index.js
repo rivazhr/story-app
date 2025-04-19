@@ -16,7 +16,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   highlightActiveNav();
 
   const currentPath = getActivePathname();
-  if (currentPath !== '/login' || currentPath !== '/register') {
+  if (currentPath == '/login' || currentPath == '/register') {
+    document.body.classList.add('auth-page');
+  } else {
+    document.body.classList.remove('auth-page');
     try {
       document.getElementById('logout-button').addEventListener('click', (event) => {
         localStorage.removeItem('token');
@@ -35,6 +38,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     changeTitle(getActivePathname());
     toggleHeaderVisibility();
     highlightActiveNav();
+    
+    const currentPath = getActivePathname();
+    if (currentPath == '/login' || currentPath == '/register') {
+      document.body.classList.add('auth-page');
+    } else {
+      document.body.classList.remove('auth-page');
+      try {
+        document.getElementById('logout-button').addEventListener('click', (event) => {
+          localStorage.removeItem('token');
+          window.location.hash = '#/login'; 
+        });
+      } catch (error) {}
+    }
   });
 });
 

@@ -29,7 +29,7 @@ export function sleep(time = 1000) {
 export function highlightActiveNav() {
   const currentPath = getActivePathname();
   const navLinks = document.querySelectorAll('#nav-list a');
-
+  
   navLinks.forEach((link) => {
     const linkPath = link.getAttribute('href').replace('#', '');
 

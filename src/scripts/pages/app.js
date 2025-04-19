@@ -43,25 +43,35 @@ class App {
       this.#content.innerHTML = await page.render();
       await page.afterRender();
       feather.replace();
+      document.getElementById('skip-to-content')?.addEventListener('click', () => {
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+          mainContent.setAttribute('tabindex', '-1'); 
+          mainContent.focus();
+        }
+      });
+
       return;
     }
 
     const transition = document.startViewTransition(async () => {
-      this.#content.classList.add('move-out');
-      await new Promise((resolve) => setTimeout(resolve, 150)); 
 
       this.#content.innerHTML = await page.render();
       await page.afterRender();
       feather.replace();
-
-      this.#content.classList.remove('move-out');
-      this.#content.classList.add('move-in');
+      document.getElementById('skip-to-content')?.addEventListener('click', () => {
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+          mainContent.setAttribute('tabindex', '-1'); 
+          mainContent.focus();
+          mainContent.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
 
 
     transition.finished.then(() => {
       this.#currentPath = getActivePathname();
-      this.#content.classList.remove('move-out', 'move-in');
     });
   }
 }
