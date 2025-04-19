@@ -259,7 +259,7 @@ input, textarea {
 }
 
 .auth-container {
-  width: 50%;
+  width: 85%;
   margin: auto;
   padding: 2rem;
   background-color: white;
@@ -590,6 +590,10 @@ a {
   
   .drawer-button {
     display: none;
+  }
+
+  .auth-container {
+    width: 50%;
   }
 }
 
