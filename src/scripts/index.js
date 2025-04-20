@@ -12,6 +12,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     navigationDrawer: document.querySelector('#navigation-drawer'),
   });
   await app.renderPage();
+
+  const skipLink = document.querySelector('.skip-to-content');
+  if (skipLink) {
+    skipLink.addEventListener('click', (e) => {
+      const href = skipLink.getAttribute('href');
+      if (href === '#main-content') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.setAttribute('tabindex', '-1'); 
+          target.focus();
+        }
+      }
+    });
+  }
+
   changeTitle(getActivePathname());
   toggleHeaderVisibility();
   highlightActiveNav();
@@ -28,5 +44,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     highlightActiveNav();
   });
 });
-
-

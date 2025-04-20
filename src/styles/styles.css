@@ -215,8 +215,15 @@ a svg, button svg {
   stroke: var(--danger-100) !important;
 }
 
-#skip-to-content {
+.skip-to-content {
   background-color: var(--secondary-color);
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.skip-to-content:focus {
+  position: unset !important;
 }
 
 input, textarea {
@@ -459,6 +466,24 @@ a {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 160px);
+}
+
+.marker-img {
+  width: 100%;
+}
+
+.marker-title {
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.marker-text {
+  font-weight: 500;
+  margin: 0 !important;
+  padding: 0;
+  font-size: 12px;
 }
 
 /* LOADING INDICATOR */

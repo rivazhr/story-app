@@ -26,7 +26,7 @@ const satelliteLayer = new MaptilerLayer({
   style: "satellite",
 });
 
-export const createMap = (containerId, initialLatLng = [-2.548926, 118.0148634], zoomLevel = 13) => {
+export const createMap = (containerId, initialLatLng = [-2.548926, 118.0148634], zoomLevel = 5) => {
   const map = L.map(containerId, {
     center: initialLatLng,
     zoom: zoomLevel,
@@ -43,13 +43,26 @@ export const createMap = (containerId, initialLatLng = [-2.548926, 118.0148634],
   return map;
 };
 
-export async function addMark (map, initialLatLng) {
-  const marker = L.marker(initialLatLng).addTo(map);
+export async function addMark (map, story) {
+  const marker = L.marker([story.lat, story.lon]).addTo(map);
   marker.bindPopup(`
-    Latitude: ${ initialLatLng[0] }<br>
-    Longitude: ${ initialLatLng[1] }<br>
-    Location: ${ await reverseGeocodeFull(initialLatLng[0], initialLatLng[1]) }
+    <img src=${ story.photoUrl } class="marker-img" alt="Photo by ${ story.name }">
+    <h2 class="marker-title">${ story.name }</h2>
+    <p class="marker-text">${ story.description }</p>
   `);
+}
+
+export async function addMarkAll (map, stories) {
+  stories.forEach(story => {
+    if (story.lat || story.lon){
+      const marker = L.marker([story.lat, story.lon]).addTo(map);
+      marker.bindPopup(`
+        <img src=${ story.photoUrl } class="marker-img" alt="Photo by ${ story.name }">
+        <h2 class="marker-title">${ story.name }</h2>
+        <p class="marker-text">${ story.description }</p>
+      `);
+    }
+  });
 }
 
 export async function reverseGeocode(lat, lon) {

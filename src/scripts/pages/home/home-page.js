@@ -43,6 +43,7 @@ export default class HomePage {
     stories.forEach((story) => {
       const card = document.createElement('story-card');
       card.story = story;
+      card.setAttribute('data-id', story.id);
       container.appendChild(card);
     });
   }

@@ -33,18 +33,6 @@ class App {
         }
       })
 
-      const skipButton = this.#navigationDrawer.querySelector('#skip-to-content');
-      if (skipButton) {
-        skipButton.addEventListener('click', () => {
-          const mainContent = document.querySelector('#main-content');
-          if (mainContent) {
-            mainContent.setAttribute('tabindex', '-1'); 
-            mainContent.focus();
-            mainContent.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      }
-      
       const logoutButton = this.#navigationDrawer.querySelector('#logout-button');
       if (logoutButton) {
         logoutButton.addEventListener('click', (event) => {
@@ -82,21 +70,12 @@ class App {
       } else {
         document.body.classList.remove('auth-page');
         try {
-          document.getElementById('logout-button').addEventListener('click', (event) => {
+          document.getElementById('logout-button').addEventListener('click', () => {
             localStorage.removeItem('token');
             window.location.hash = '#/login'; 
           });
         } catch (error) {}
       }
-
-      document.getElementById('skip-to-content')?.addEventListener('click', () => {
-        const mainContent = document.getElementById('main-content');
-        if (mainContent) {
-          mainContent.setAttribute('tabindex', '-1'); 
-          mainContent.focus();
-          mainContent.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
     });
   }
 }

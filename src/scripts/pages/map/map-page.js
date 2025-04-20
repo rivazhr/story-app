@@ -23,6 +23,6 @@ export default class MapPage {
       return;
     }
 
-    this.presenter.createMap();
+    this.presenter.createMap(token);
   }
 }

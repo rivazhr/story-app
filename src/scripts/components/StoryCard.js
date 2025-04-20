@@ -15,7 +15,7 @@ class StoryCard extends HTMLElement {
     this.innerHTML = `
       <img src="${this._story.photoUrl}" alt="Photo by ${this._story.name}" class="story-img" />
       <section class="story-content">
-        <a class="map-btn" href="#/map?lat=${this._story.lat}&lon=${this._story.lon}" tabindex="0">
+        <a class="map-btn" href="#/map?id=${this._story.id}" tabindex="0">
           <i data-feather="map-pin"></i>
           <span class="location-label">Loading...</span>
         </a>

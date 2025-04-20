@@ -50,7 +50,10 @@ export async function getStoryDetail(token, id) {
       'Authorization': `Bearer ${token}`,
     },
   });
-  return await response.json();
+  
+  const result = await response.json();
+  if (!result.error)
+    return result.story;
 }
 
 export async function addStory(token, formData) {

@@ -43,7 +43,23 @@ export class AddPresenter {
       latInput.value = lat;
       lonInput.value = lon;
     } catch (error) {
-      console.error('Gagal mendapatkan lokasi', error);
+      const map = createMap('map', [-2.5489, 118.0149], 5);
+      const marker = L.marker([-2.5489, 118.0149], { draggable: true }).addTo(map);
+
+      marker.on('dragend', async () => {
+        const position = marker.getLatLng();
+        latInput.value = position.lat;
+        lonInput.value = position.lng;
+      });
+
+      map.on('click', function (e) {
+        const { lat: clickedLat, lng: clickedLon } = e.latlng;
+
+        marker.setLatLng([clickedLat, clickedLon]); 
+        latInput.value = clickedLat;
+        lonInput.value = clickedLon;
+      });
+
     }
   }
 
