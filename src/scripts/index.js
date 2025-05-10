@@ -4,6 +4,7 @@ import { highlightActiveNav, toggleHeaderVisibility, changeTitle } from './utils
 import { getActivePathname } from './routes/url-parser.js';
 
 import App from './pages/app';
+import { registerServiceWorker } from './utils';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   changeTitle(getActivePathname());
   toggleHeaderVisibility();
   highlightActiveNav();
+  
+  await registerServiceWorker();
 
   window.addEventListener('hashchange', async () => {
     try {

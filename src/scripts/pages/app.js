@@ -1,6 +1,8 @@
 import routes from '../routes/routes';
 import { getActivePathname, getActiveRoute } from '../routes/url-parser';
 import feather from 'feather-icons';
+import { isServiceWorkerAvailable } from '../utils'
+import { isCurrentPushSubscriptionAvailable, subscribe, unsubscribe } from '../utils/notification-helper';
 
 class App {
   #content = null;
@@ -76,6 +78,49 @@ class App {
           });
         } catch (error) {}
       }
+    });
+
+    transition.updateCallbackDone.then(() => {
+      if(isServiceWorkerAvailable()) {
+        this.#setupPushNotification();
+      }
+    });
+  }
+
+  async #setupPushNotification() {
+    const pushNotificationTools = document.getElementById('push-notification-tools');
+    pushNotificationTools.innerHTML = `
+      <button id="subscribe-button" class="btn btn-secondary filled">
+        Subscribe
+        <i data-feather="bell"></i>
+      </button>
+    `
+
+    feather.replace();
+    const isSubscribed = await isCurrentPushSubscriptionAvailable();
+
+    if (isSubscribed) {
+      pushNotificationTools.innerHTML = `
+        <button id="unsubscribe-button" class="btn btn-secondary filled">
+          Unsubscribe
+          <i data-feather="bell-off"></i>
+        </button>
+      `;
+
+      feather.replace();
+
+      document.getElementById('unsubscribe-button').addEventListener('click', () => {
+        unsubscribe().finally(() => {
+          this.#setupPushNotification();
+        });
+      });
+      return;
+    }
+
+    document.getElementById('subscribe-button').addEventListener('click', () => {
+      subscribe().finally(() => {
+        this.#setupPushNotification();
+      });
     });
   }
 }

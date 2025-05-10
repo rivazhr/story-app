@@ -183,6 +183,11 @@ a svg, button svg {
   color: black;
 }
 
+.btn-secondary.filled {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
 .btn-secondary:hover {
   background-color: var(--secondary-color);
   outline: none;
@@ -484,6 +489,14 @@ a {
   margin: 0 !important;
   padding: 0;
   font-size: 12px;
+}
+
+/* PUSH NOTIFICATION */
+
+#subscribe-button svg, #unsubscribe-button svg {
+  stroke: white;
+  fill: white;
+  stroke-width: 2;
 }
 
 /* LOADING INDICATOR */

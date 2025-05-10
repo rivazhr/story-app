@@ -2,10 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'src/scripts/index.js'),
+    sw: path.resolve(__dirname, 'src/scripts/sw.js'),
   },
   output: {
     filename: '[name].bundle.js',
@@ -23,6 +25,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
       favicon: path.resolve(__dirname, 'src/public/favicon.ico'),
+      excludeChunks: ['sw'],
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -38,6 +41,9 @@ module.exports = {
     }),
     new Dotenv({
       systemvars: true, 
+    }),
+    new GenerateSW({
+      swDest: 'sw.bundle.js',
     }),
   ],
 };
