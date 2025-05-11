@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #3D0301;
-  --primary-100: whitesmoke;
+  --primary-100: #f5f5f5;
   --secondary-color: #B03052;
   --secondary-100: #efe2e5;
   --accent-color: #EBE8DB;
@@ -52,10 +52,18 @@ header {
 }
 
 .brand-name {
+  display: flex;
+  align-items: center; 
+  gap: 0.5em;
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
   color: whitesmoke;
+}
+
+.brand-name > img {
+  height: 1.5em; 
+  width: auto;
 }
 
 .navigation-drawer {
