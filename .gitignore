@@ -3,7 +3,7 @@
 .vscode
 node_modules
 dist
-public
+/public
 
 # Files
 .env
