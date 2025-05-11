@@ -17,7 +17,7 @@ export default class RegisterPresenter {
       localStorage.setItem('token', loginResponse.loginResult.token);
       window.location.hash = '/';
     } catch (error) {
-      this.#view.showError('Registration failed');
+      this.#view.showError(error.message);
     } finally {
       hideLoader();
     }

@@ -1,34 +1,45 @@
 import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { NetworkFirst, CacheFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strategies';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
+import {
+  CacheableResponsePlugin,
+} from 'workbox-cacheable-response';
+import {
+  NetworkFirst,
+  CacheFirst,
+  StaleWhileRevalidate,
+  NetworkOnly,
+} from 'workbox-strategies';
+
 import CONFIG from './config';
 
-// Do precaching
-const manifest = self.__WB_MANIFEST;
-precacheAndRoute(manifest);
+// Precache files from __WB_MANIFEST
+precacheAndRoute(self.__WB_MANIFEST);
 
-// Runtime caching
+// --- RUNTIME CACHING ---
+
+// Google Fonts
 registerRoute(
-  ({ url }) => {
-    return url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com';
-  },
+  ({ url }) =>
+    url.origin === 'https://fonts.googleapis.com' ||
+    url.origin === 'https://fonts.gstatic.com',
   new CacheFirst({
     cacheName: 'google-fonts',
   }),
 );
+
+// Font Awesome
 registerRoute(
-  ({ url }) => {
-    return url.origin === 'https://cdnjs.cloudflare.com' || url.origin.includes('fontawesome');
-  },
+  ({ url }) =>
+    url.origin === 'https://cdnjs.cloudflare.com' ||
+    url.origin.includes('fontawesome'),
   new CacheFirst({
     cacheName: 'fontawesome',
   }),
 );
+
+// UI Avatars
 registerRoute(
-  ({ url }) => {
-    return url.origin === 'https://ui-avatars.com';
-  },
+  ({ url }) => url.origin === 'https://ui-avatars.com',
   new CacheFirst({
     cacheName: 'avatars-api',
     plugins: [
@@ -38,6 +49,8 @@ registerRoute(
     ],
   }),
 );
+
+// API Requests (excluding images)
 registerRoute(
   ({ request, url }) => {
     const baseUrl = new URL(CONFIG.BASE_URL);
@@ -47,6 +60,8 @@ registerRoute(
     cacheName: 'story-api',
   }),
 );
+
+// Image requests from API
 registerRoute(
   ({ request, url }) => {
     const baseUrl = new URL(CONFIG.BASE_URL);
@@ -56,49 +71,50 @@ registerRoute(
     cacheName: 'story-api-images',
   }),
 );
+
+// Maptiler tiles or assets
 registerRoute(
-  ({ url }) => {
-    return url.origin.includes('maptiler');
-  },
+  ({ url }) => url.origin.includes('maptiler'),
   new CacheFirst({
     cacheName: 'maptiler-api',
   }),
 );
+
+// HTML pages (SPA navigation)
 registerRoute(
   ({ request }) => request.mode === 'navigate',
   new NetworkFirst({
     cacheName: 'html-pages',
   }),
 );
-// Bypass caching for auth-related routes
+
+// Bypass caching for auth routes or POST requests
 registerRoute(
-  ({ url, request }) => {
-    return (
-      request.method === 'POST' || 
-      url.pathname.includes('/login') ||
-      url.pathname.includes('/register')
-    );
-  },
+  ({ url, request }) =>
+    request.method === 'POST' ||
+    url.pathname.includes('/login') ||
+    url.pathname.includes('/register'),
   new NetworkOnly()
 );
 
+// --- ACTIVATE: FORCE CLEAN CACHE ON UPDATE ---
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => caches.delete(cacheName))
-      );
-    })
+    caches.keys().then((cacheNames) =>
+      Promise.all(cacheNames.map((name) => caches.delete(name)))
+    )
   );
 });
 
+// --- PUSH NOTIFICATION HANDLER ---
 self.addEventListener('push', (event) => {
-  async function chainPromise() {
+  async function showNotif() {
     const data = await event.data.json();
     await self.registration.showNotification(data.title, {
-      body: data.options.body,
+      body: data.options?.body || '',
+      icon: data.options?.icon || '/images/icons/icon-x144.png',
     });
   }
 
-  event.waitUntil(chainPromise());
+  event.waitUntil(showNotif());
 });
