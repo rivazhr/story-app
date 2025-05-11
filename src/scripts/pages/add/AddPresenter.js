@@ -9,10 +9,14 @@ export class AddPresenter {
 
   async handleSubmit(description, photo, lat, lon) {
     showLoader();
-    const token = localStorage.getItem('token');
-    
-    await this.addStory(token, { description, photo, lat, lon });
-    hideLoader();
+    try {
+      const token = localStorage.getItem('token');
+      await this.addStory(token, { description, photo, lat, lon });
+    } catch (error) {
+      alert('Failed to add a new story');
+    } finally {
+      hideLoader();
+    }
   }
 
   async setupMap(latInput, lonInput) {

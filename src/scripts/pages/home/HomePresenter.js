@@ -11,8 +11,13 @@ export default class HomePresenter {
 
   async init(token) {
     showLoader();
-    const { listStory } = await this.#model.getAllStories(token);
-    this.#view.showData(listStory);
-    hideLoader();
+    try {
+      const { listStory } = await this.#model.getAllStories(token);
+      this.#view.showData(listStory);
+    } catch (error) {
+      alert('error: ' + error.message);
+    } finally {
+      hideLoader();
+    }
   }
 }

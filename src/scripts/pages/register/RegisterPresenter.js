@@ -11,14 +11,15 @@ export default class RegisterPresenter {
 
   async handleRegister(name, email, password) {
     showLoader();
-    const response = await registerUser({ name, email, password });
-    if (!response.error) {
+    try {
+      await registerUser({ name, email, password });
       const loginResponse = await loginUser({ email, password });
       localStorage.setItem('token', loginResponse.loginResult.token);
-      hideLoader();
       window.location.hash = '/';
-    } else {
+    } catch (error) {
       this.#view.showError('Registration failed');
+    } finally {
+      hideLoader();
     }
   }
 }

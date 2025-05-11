@@ -10,13 +10,14 @@ export default class LoginPresenter {
 
   async handleLogin(email, password) {
     showLoader();
-    const response = await loginUser({ email, password });
-    if (!response.error) {
+    try {
+      await loginUser({ email, password });
       localStorage.setItem('token', response.loginResult.token);
-      hideLoader();
       window.location.hash = '/';
-    } else {
+    } catch (error) {
       this.#view.showError('Invalid email or password');
+    } finally {
+      hideLoader();
     }
   }
 }
