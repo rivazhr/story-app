@@ -10,37 +10,37 @@
   "theme_color": "#3D0301",
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/icon-x144.png",
       "type": "image/png",
       "sizes": "144x144",
       "purpose": "any"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/maskable-icon-x44.png",
       "type": "image/png",
       "sizes": "48x48",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/maskable-icon-x96.png",
       "type": "image/png",
       "sizes": "96x96",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/maskable-icon-x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/maskable-icon-x384.png",
       "type": "image/png",
       "sizes": "384x384",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/icons/maskable-icon-x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
@@ -58,6 +58,46 @@
       "sizes": "1920x1043",
       "type": "image/png",
       "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/mobile-1.jpg",
+      "sizes": "1080x2280",
+      "type": "image/jpg",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/mobile-2.jpg",
+      "sizes": "1080x2280",
+      "type": "image/jpg",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Story",
+      "short_name": "New",
+      "description": "Upload a new story.",
+      "url": "/?source=pwa#/add",
+      "icons": [
+        {
+          "src": "images/icons/add-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    },
+    {
+      "name": "Saved Stories",
+      "short_name": "Bookmark",
+      "description": "Check your story bookmarks",
+      "url": "/?source=pwa#/bookmark",
+      "icons": [
+        {
+          "src": "images/icons/bookmark-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
     }
   ]
 }
