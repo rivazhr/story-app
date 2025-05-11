@@ -141,6 +141,11 @@ export async function registerServiceWorker() {
     return;
   }
 
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
   try {
     await navigator.serviceWorker.register('/sw.bundle.js');
   } catch (error) {

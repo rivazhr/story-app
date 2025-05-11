@@ -1,7 +1,7 @@
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { NetworkFirst, CacheFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strategies';
 import CONFIG from './config';
 
 // Do precaching
@@ -64,6 +64,33 @@ registerRoute(
     cacheName: 'maptiler-api',
   }),
 );
+registerRoute(
+  ({ request }) => request.mode === 'navigate',
+  new NetworkFirst({
+    cacheName: 'html-pages',
+  }),
+);
+// Bypass caching for auth-related routes
+registerRoute(
+  ({ url, request }) => {
+    return (
+      request.method === 'POST' || 
+      url.pathname.includes('/login') ||
+      url.pathname.includes('/register')
+    );
+  },
+  new NetworkOnly()
+);
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => caches.delete(cacheName))
+      );
+    })
+  );
+});
 
 self.addEventListener('push', (event) => {
   async function chainPromise() {
