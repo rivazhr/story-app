@@ -114,6 +114,8 @@ class AddPage {
       e.preventDefault();
       this.presenter.handleSubmit(this.descriptionInput.value, this.photoInput.files[0], this.latInput.value, this.lonInput.value);
     });
+
+    
   }
 }
 

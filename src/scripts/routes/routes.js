@@ -4,6 +4,7 @@ import LoginPage from '../pages/login/login-page';
 import RegisterPage from '../pages/register/register-page';
 import AddPage from '../pages/add/add-page';
 import MapPage from '../pages/map/map-page';
+import SavedPage from '../pages/saved/saved-page';
 
 const routes = {
   '/': new HomePage(),
@@ -12,6 +13,7 @@ const routes = {
   '/about': new AboutPage(),
   '/add': new AddPage(),
   '/map': new MapPage(),
+  '/bookmark': new SavedPage(),
 };
 
 export default routes;

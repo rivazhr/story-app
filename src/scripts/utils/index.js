@@ -137,14 +137,23 @@ export function isServiceWorkerAvailable() {
 
 export async function registerServiceWorker() {
   if (!isServiceWorkerAvailable()) {
-    console.log('Service Worker API unsupported');
+    alert('Service Worker API unsupported');
     return;
   }
 
   try {
-    const registration = await navigator.serviceWorker.register('/sw.bundle.js');
-    console.log('Service worker telah terpasang', registration);
+    await navigator.serviceWorker.register('/sw.bundle.js');
   } catch (error) {
-    console.log('Failed to install service worker:', error);
+    alert('Failed to install service worker:', error);
   }
+}
+
+export async function showToast(message, duration = 3000) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, duration);
 }
