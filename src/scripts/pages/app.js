@@ -39,8 +39,8 @@ class App {
       if (logoutButton) {
         logoutButton.addEventListener('click', (event) => {
           event.preventDefault();
-          localStorage.removeItem('token');
-          window.location.hash = '#/login';
+          localStorage.removeItem('loginSession');
+          window.location.hash = '/login';
         });
       }
     });
@@ -73,7 +73,7 @@ class App {
         document.body.classList.remove('auth-page');
         try {
           document.getElementById('logout-button').addEventListener('click', () => {
-            localStorage.removeItem('token');
+            localStorage.removeItem('loginSession');
             window.location.hash = '#/login'; 
           });
         } catch (error) {}

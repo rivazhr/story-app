@@ -1,4 +1,5 @@
 import { loginUser } from '../../data/api.js';
+import { setSession } from '../../utils/auth.js';
 import { showLoader, hideLoader } from '../../utils/index.js';
 
 export default class LoginPresenter {
@@ -13,8 +14,7 @@ export default class LoginPresenter {
     try {
       const response = await loginUser({ email, password });
       if (!response.error) {
-        localStorage.setItem('token', response.loginResult.token);
-        window.location.hash = '/';
+        setSession(response);
       } else throw new Error(response.message);
     } catch (error) {
       this.#view.showError(error.message);

@@ -1,5 +1,5 @@
 import CONFIG from '../config';
-import { getAccessToken } from '../utils';
+import { getAccessToken } from '../utils/auth';
 
 const ENDPOINTS = {
   REGISTER: `${CONFIG.BASE_URL}/register`,

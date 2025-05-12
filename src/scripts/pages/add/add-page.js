@@ -1,5 +1,6 @@
 import { AddPresenter } from './AddPresenter.js';
 import { startCamera, stopCamera, captureImage } from '../../utils/mediaStream.js';
+import { isLoggedIn } from '../../utils/auth.js';
 
 class AddPage {
   constructor() {
@@ -58,10 +59,9 @@ class AddPage {
   }
     
   afterRender() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.hash = '#/login';
-      return;
+    if (!isLoggedIn()) {
+      window.location.hash = '/';
+      return '';
     }
 
     this.latInput = document.querySelector('#lat');

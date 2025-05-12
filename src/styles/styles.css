@@ -66,6 +66,10 @@ header {
   width: auto;
 }
 
+.user-name {
+  color: var(--secondary-color);
+}
+
 .navigation-drawer {
   min-height: 100vh;
   width: 200px;
@@ -139,13 +143,25 @@ header {
   background-color: rgba(230, 157, 184, 0.2);
 }
 
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 20px;
+}
+
+.text-button {
+  display: flex;
+  align-items: center;
+}
+
 .title-button {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.title-button h1 {
+.title-button h1, .text-button h1 {
   width: 100%;
   font-size: 2rem;
 }
@@ -623,6 +639,33 @@ a {
 
 .team-member p {
   color: #777;
+}
+
+/* NOT FOUND */
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  gap: 1rem;
+  width: 100%;
+  height: 70vh; 
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.not-found-page h1 {
+  font-size: 2rem;
+}
+
+.img {
+  padding: 0 3rem;
+}
+
+.not-found-page img {
+  width: 100%;
+  max-width: 400px; 
 }
 
 /* TOAST */

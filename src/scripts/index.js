@@ -1,10 +1,11 @@
 import '../styles/styles.css';
 import { stopCamera } from './utils/mediaStream.js';
 import { highlightActiveNav, toggleHeaderVisibility, changeTitle } from './utils/index.js';
-import { getActivePathname } from './routes/url-parser.js';
+import { getActivePathname, getActiveRoute } from './routes/url-parser.js';
 
 import App from './pages/app';
 import { registerServiceWorker } from './utils';
+import { isLoggedIn } from './utils/auth.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
@@ -12,6 +13,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     drawerButton: document.querySelector('#drawer-button'),
     navigationDrawer: document.querySelector('#navigation-drawer'),
   });
+
+  if (!isLoggedIn() && getActiveRoute() !== '/register' && getActiveRoute() !== '/404') {
+    location.hash = '#/login';
+  } else if (isLoggedIn() && (getActiveRoute() === '/login' || getActiveRoute() === '/register')) {
+    location.hash = '#/';
+  }  
+
   await app.renderPage();
 
   const skipLink = document.querySelector('.skip-to-content');
@@ -40,6 +48,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       const video = document.querySelector('#video');
       stopCamera(video);
     } catch (error) {}
+
+    if (!isLoggedIn() && getActiveRoute() !== '/register' && getActiveRoute() !== '/404') {
+      location.hash = '#/login';
+    } else if (isLoggedIn() && (getActiveRoute() === '/login' || getActiveRoute() === '/register')) {
+      location.hash = '#/';
+    }    
     
     await app.renderPage();
     changeTitle(getActivePathname());

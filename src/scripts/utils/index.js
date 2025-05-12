@@ -1,4 +1,5 @@
 import { getActivePathname } from '../routes/url-parser.js';
+import { isLoggedIn } from './auth.js';
 
 export function changeTitle(route) {
   const routes = {
@@ -6,6 +7,7 @@ export function changeTitle(route) {
     '/about': 'LuluTalk | About',
     '/add': 'LuluTalk | Add a New Story',
     '/map': 'LuluTalk | Location',
+    '/bookmark': 'LuluTalk | Saved Stories',
   };
 
   const pageTitle = routes[route] || 'LuluTalk';
@@ -115,10 +117,6 @@ export function compressImage(file, maxWidth = 800, maxHeight = 800) {
       }, file.type, 0.7); 
     };
   });
-}
-export function getAccessToken(){
-  const token = localStorage.getItem('token');
-  return token;
 }
 export function convertBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);

@@ -1,43 +1,44 @@
 import '../../components/StoryCard.js';
 import HomePresenter from './HomePresenter.js';
 import { getAllStories } from '../../data/api.js'; 
+import { getAccessToken, getUserName, isLoggedIn } from '../../utils/auth.js';
 
 export default class HomePage {
   async render() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.hash = '#/login';
-      return '';
+    if (!isLoggedIn()) {
+      window.location.hash = '/';
+      return ''; 
     }
 
     return `
       <div class="container">
-        <section class="title-button">
-          <h1>Home</h1>
-          <a href="#/add" class="btn">
-            <i data-feather="plus"></i>
-            Share your Story
-          </a>
+        <section class="title">
+          <section class="text-button">
+            <h1>Hello, <strong class="user-name">${ getUserName() }</strong>!</h1>
+            <a href="#/add" class="btn">
+              <i data-feather="plus"></i>
+              Share your Story
+            </a>
+          </section>
+          <p>Mind to share us a story today?</p>
         </section>
         <div id="story-list"></div>
       </div>
     `;
   }
 
-
   async afterRender() {
-    const token = localStorage.getItem('token');
-
+    const token = getAccessToken();
     const presenter = new HomePresenter({
-      model: { getAllStories },  
+      model: { getAllStories },
       view: this,
     });
-
     await presenter.init(token);
   }
 
   showData(stories) {
     const container = document.getElementById('story-list');
+    if (!container) return; 
     container.innerHTML = '';
 
     stories.forEach((story) => {

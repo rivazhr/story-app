@@ -1,7 +1,9 @@
+import { hideLoader } from '../../utils/index.js';
 import LoginPresenter from './LoginPresenter.js';
 
 export default class LoginPage {
   async render() {
+    hideLoader();
     return `
       <section class="auth-container">
         <h1 class="auth-title">Login</h1>
@@ -22,6 +24,7 @@ export default class LoginPage {
   }
 
   async afterRender() {
+    hideLoader();
     const loginForm = document.querySelector('.auth-form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');

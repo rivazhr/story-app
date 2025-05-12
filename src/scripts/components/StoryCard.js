@@ -1,8 +1,9 @@
-import { showFormattedDate, getAccessToken, showToast } from "../utils";
+import { showFormattedDate, showToast } from "../utils";
 import { reverseGeocode } from "../data/map";
 import Database from '../data/database.js';
 import feather from 'feather-icons';
 import * as api from '../data/api.js'; 
+import { getAccessToken } from "../utils/auth.js";
 
 class StoryCard extends HTMLElement {
   constructor() {

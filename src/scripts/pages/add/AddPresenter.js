@@ -1,6 +1,7 @@
 import * as api from '../../data/api.js';
 import { getCurrentPosition, hideLoader, showLoader, compressImage } from '../../utils/index.js';
 import { createMap } from '../../data/map.js';
+import { getAccessToken } from '../../utils/auth.js';
 
 export class AddPresenter {
   constructor(view) {
@@ -10,7 +11,7 @@ export class AddPresenter {
   async handleSubmit(description, photo, lat, lon) {
     showLoader();
     try {
-      const token = localStorage.getItem('token');
+      const token = getAccessToken();
       await this.addStory(token, { description, photo, lat, lon });
     } catch (error) {
       alert('Failed to add a new story');

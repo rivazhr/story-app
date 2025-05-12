@@ -1,3 +1,4 @@
+import { getAccessToken, isLoggedIn } from '../../utils/auth.js';
 import MapPresenter from './MapPresenter.js';
 
 export default class MapPage {
@@ -17,12 +18,12 @@ export default class MapPage {
   }
 
   async afterRender() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.hash = '#/login';
-      return;
+    if (!isLoggedIn()) {
+      window.location.hash = '/';
+      return '';
     }
 
+    const token = getAccessToken();
     this.presenter.createMap(token);
   }
 }

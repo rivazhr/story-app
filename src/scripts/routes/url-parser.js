@@ -1,3 +1,5 @@
+import routes from './routes';
+
 function extractPathnameSegments(path) {
   const splitUrl = path.split('/');
 
@@ -29,7 +31,9 @@ export function getActivePathname() {
 export function getActiveRoute() {
   const pathname = getActivePathname();
   const urlSegments = extractPathnameSegments(pathname);
-  return constructRouteFromSegments(urlSegments);
+  const constructed = constructRouteFromSegments(urlSegments);
+
+  return routes[constructed] ? constructed : '/404';
 }
 
 export function parseActivePathname() {

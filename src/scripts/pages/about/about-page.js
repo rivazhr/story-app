@@ -1,3 +1,5 @@
+import { isLoggedIn } from "../../utils/auth";
+
 export default class AboutPage {
   async render() {
     return `
@@ -19,10 +21,9 @@ export default class AboutPage {
   }
 
   async afterRender() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.hash = '#/login';
-      return;
+    if (!isLoggedIn()) {
+      window.location.hash = '/';
+      return '';
     }
   }
 }
