@@ -1,4 +1,4 @@
-import { getActivePathname } from '../routes/url-parser.js';
+import { getActivePathname, getActiveRoute } from '../routes/url-parser.js';
 import { isLoggedIn } from './auth.js';
 
 export function changeTitle(route) {
@@ -72,11 +72,11 @@ export function hideLoader() {
 
 export function toggleHeaderVisibility() {
   const header = document.querySelector('header');
-  const currentRoute = getActivePathname();
-  if (currentRoute === '/login' || currentRoute === '/register') {
-    header.style.display = 'none';
+  const currentRoute = getActiveRoute();
+  if (currentRoute === '/login' || currentRoute === '/register' || currentRoute === '/404') {
+    document.getElementById('header').classList.add('hidden');
   } else {
-    header.style.display = 'block';
+    document.getElementById('header').classList.remove('hidden');
   }
 }
 
@@ -138,19 +138,13 @@ export async function registerServiceWorker() {
     alert('Service Worker API unsupported');
     return;
   }
-
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    for (let registration of registrations) {
-      registration.unregister();
-    }
-  });
   try {
-    await navigator.serviceWorker.register('/sw.bundle.js');
+    const registration = await navigator.serviceWorker.register('/sw.bundle.js');
+    console.log('Service Worker registered:', registration);
   } catch (error) {
     alert('Failed to install service worker:', error);
   }
 }
-
 export async function showToast(message, duration = 3000) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
@@ -160,3 +154,4 @@ export async function showToast(message, duration = 3000) {
     toast.classList.remove("show");
   }, duration);
 }
+

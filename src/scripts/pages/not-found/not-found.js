@@ -17,6 +17,5 @@ export default class NotFoundPage {
   }
 
   async afterRender() {
-    
   }
 };

@@ -1,7 +1,7 @@
 import routes from '../routes/routes';
 import { getActivePathname, getActiveRoute } from '../routes/url-parser';
 import feather from 'feather-icons';
-import { isServiceWorkerAvailable } from '../utils'
+import { isServiceWorkerAvailable, toggleNavigation } from '../utils'
 import { isCurrentPushSubscriptionAvailable, subscribe, unsubscribe } from '../utils/notification-helper';
 
 class App {

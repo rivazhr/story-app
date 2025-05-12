@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     location.hash = '#/login';
   } else if (isLoggedIn() && (getActiveRoute() === '/login' || getActiveRoute() === '/register')) {
     location.hash = '#/';
-  }  
+  }
 
   await app.renderPage();
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       location.hash = '#/login';
     } else if (isLoggedIn() && (getActiveRoute() === '/login' || getActiveRoute() === '/register')) {
       location.hash = '#/';
-    }    
+    }  
     
     await app.renderPage();
     changeTitle(getActivePathname());
