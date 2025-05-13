@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   await app.renderPage();
+  await registerServiceWorker();
 
   const skipLink = document.querySelector('.skip-to-content');
   if (skipLink) {
@@ -41,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   toggleHeaderVisibility();
   highlightActiveNav();
   
-  await registerServiceWorker();
 
   window.addEventListener('hashchange', async () => {
     try {

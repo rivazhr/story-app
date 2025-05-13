@@ -97,15 +97,6 @@ registerRoute(
   new NetworkOnly()
 );
 
-// --- ACTIVATE: FORCE CLEAN CACHE ON UPDATE ---
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(cacheNames.map((name) => caches.delete(name)))
-    )
-  );
-});
-
 // --- PUSH NOTIFICATION HANDLER ---
 self.addEventListener('push', (event) => {
   async function showNotif() {
